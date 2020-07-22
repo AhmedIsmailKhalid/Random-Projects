@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Film Club Website</title>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='login.js') }}"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.5.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.1/firebase-ui-auth.css" />
+</head>
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+  <script>
+  //insert here your specific Firebase project configuration
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+
+<div class="header">
+  <h1>Film Club Website</h1>
+  <p>This is a responsive web app, view it on mobile or resize the window to see the effect.</p>
+</div>
+
+  <div class="topnav">
+    <a href="/">Movies</a>
+    <a href="pastmovies">Past movies</a>
+    <a href="suggestamovie">Suggest a movie</a>
+  <a style="float:right" href="/login">Login</a>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <div class="card" id="firebaseui-auth-container"></div>
+      <button id="sign-out" hidden=true>Sign Out</button>
+    </div>
+
+  <div class="footer">
+  <h5>A basic film club draft web app.</h5>
+  </div>
+
+</body>
+</html>

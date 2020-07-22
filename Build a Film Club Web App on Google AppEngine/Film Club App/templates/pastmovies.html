@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Film Club Website</title>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.5.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.1/firebase-ui-auth.css" />
+</head>
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+  <script>
+  //insert here your specific Firebase project configuration
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script> 
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+
+  <div class="header">
+    <h1>Film Club Website</h1>
+    <p>This is a responsive web app, view it on mobile or resize the window to see the effect.</p>
+  </div>
+
+  <div class="topnav">
+    <a href="/">Movies</a>
+    <a href="pastmovies">Past movies</a>
+    <a href="suggestamovie">Suggest a movie</a>
+  <a style="float:right" href="/login">Login</a>
+  </div>
+
+
+  <div class="row">
+    <div class="column">
+
+      <div class="userinfo" id="login-info" hidden=true>
+        Logged in as:
+        {% if user_data %}
+        {{ user_data['email] }
+        {% elif error_message %}
+        <p>Error: {{ error_message }}</p>
+        {% endif %}
+        </dl>
+      <div id="firebaseui-auth-container"></div>
+      <br><button class="button" id="sign-out" hidden=true>Sign Out</button>
+      </div>
+
+      {% for movie in movies %}
+      <div class="card" id="{{ movie['key']['kind'] }}-{{ movie['key']['name'] }}">
+        <h2>Title: {{ movie['title'] }}</h2>
+        <h5>Genre:{{ movie['genre'] }}</h5>
+        <h5>Suggested by: {{ movie['suggested_by'] }}</h5>
+        <p>Plot: {{ movie['plot'] }}</p>
+        <form action = "/pastmovies" method = "POST">
+        <p><input type="hidden" name="kind" value="{{ movie['key']['kind'] }}"></p>
+        <p><input type="hidden" name="name" value="{{ movie['key']['name'] }}"></p>
+        <p><input type="submit" value="Mark as unseen"></p>
+        </form>
+      </div>
+      {% endfor %}
+
+    </div>
+
+
+  <div class="footer">
+  <h5>A basic film club draft web app.</h5>
+  </div>
+
+</body>
+</html>

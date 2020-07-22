@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Film Club Website</title>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.5.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.1/firebase-ui-auth.css" />
+</head>
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+
+  <script>
+
+  //insert here your specific Firebase project configuration
+  
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script> 
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+
+  <div class="header">
+    <h1>Film Club Website</h1>
+    <p>This is a responsive web app, view it on mobile or resize the window to see the effect.</p>
+  </div>
+
+  <div class="topnav">
+    <a href="/">Movies</a>
+    <a href="pastmovies">Past movies</a>
+    <a href="suggestamovie">Suggest a movie</a>
+  <a style="float:right" href="/login">Login</a>
+  </div>
+
+  <div class="row">
+    <div class="column">
+
+      <div class="userinfo" id="login-info" hidden=true>
+        Logged in as:
+        {% if user_data %}
+        {{ user_data['email'] }}
+        {% elif error_message %}
+        <p>Error: {{ error_message }}</p>
+        {% endif %}
+        </dl>
+      <div id="firebaseui-auth-container"></div>
+      <br><button class="button" id="sign-out" hidden=true>Sign Out</button>
+      </div>
+
+      <div class="card">
+      <form action = "/suggestamovie" method = "POST">
+        <p>Title:  <input type="text" name="title"></p>
+        <p>Genre:  <input type="text" name="genre"></p>
+        <p>Plot: <textarea name="plot" style="width: 80% height: 100%;"></textarea></p>
+        <p><input type="hidden" name="suggested_by" value="{{ user_data['name'] }}"></p>
+        <p><input type="submit" value="Submit"></p>
+      </form>
+      </div>
+    </div>
+
+  <div class="footer">
+  <h5>A basic film club draft web app.</h5>
+  </div>
+
+
+</body>
+</html>
